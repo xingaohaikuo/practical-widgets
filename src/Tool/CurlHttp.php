@@ -1,6 +1,6 @@
 <?php
 
-namespace UsefulWidgets\Tool;
+namespace Practical\Tool;
 
 /**
  *             ,%%%%%%%%,

@@ -1,6 +1,6 @@
 <?php
 
-namespace UsefulWidgets\Equipment;
+namespace Practical\Equipment;
 
 /**
  *      ┌─┐       ┌─┐ + +

@@ -1,5 +1,5 @@
 {
-    "name": "useful/widgets",
+    "name": "practical/widgets",
     "description": "Develop daily practical small components",
     "type": "library",
     "license": "MIT",
@@ -7,7 +7,7 @@
     "require": {},
     "autoload":{
         "psr-4": {
-            "UsefulWidgets\\":"src"
+            "Practical\\":"src"
         }
     }
 }
