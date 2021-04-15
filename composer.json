@@ -1,0 +1,13 @@
+{
+    "name": "useful/widgets",
+    "description": "Develop daily practical small components",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "beta",
+    "require": {},
+    "autoload":{
+        "psr-4": {
+            "UsefulWidgets\\":"src"
+        }
+    }
+}
