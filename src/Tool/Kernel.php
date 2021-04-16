@@ -212,4 +212,93 @@ class Kernel
         flush();
         die();
     }
+
+    /**
+     * 下划线转驼峰
+     * @param $uncamelizedWords
+     * @param string $separator
+     * @return string
+     */
+    public function camelize($uncamelizedWords, $separator = '_')
+    {
+        $uncamelizedWords = $separator . str_replace($separator, " ", strtolower($uncamelizedWords));
+        return ltrim(str_replace(" ", "", ucwords($uncamelizedWords)), $separator);
+    }
+
+    /**
+     * 驼峰转下划线
+     * @param $camelCaps
+     * @param string $separator
+     * @return string
+     */
+    public function uncamelize($camelCaps, $separator = '_')
+    {
+        return strtolower(preg_replace('/([a-z])([A-Z])/', "$1" . $separator . "$2", $camelCaps));
+    }
+
+    /**
+     * 列表转树结构
+     * @param array $list
+     * @param string $pk 主键
+     * @param string $pid 
+     * @param string $child
+     * @param int $root
+     */
+    public function listToTree($list, $pk = 'id', $pid = 'pid', $child = 'child', $root = 0)
+    {
+        //创建Tree
+        $tree = array();
+        if (is_array($list)) {
+            //创建基于主键的数组引用
+            $refer = array();
+
+            foreach ($list as $key => $data) {
+                $refer[$data[$pk]] = &$list[$key];
+            }
+
+            foreach ($list as $key => $data) {
+                //判断是否存在parent
+                $parantId = $data[$pid];
+
+                if ($root == $parantId) {
+                    $tree[] = &$list[$key];
+                } else {
+                    if (isset($refer[$parantId])) {
+                        $parent = &$refer[$parantId];
+                        $parent[$child][] = &$list[$key];
+                    }
+                }
+            }
+        }
+
+        return $tree;
+    }
+
+    /**
+     * 生成随机字符串
+     * @param int $length 生成随机字符串的长度
+     * @param string $char 组成随机字符串的字符串
+     * @return string $string 生成的随机字符串
+     */
+    public function strRand($length = 32, $char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+        if(!is_int($length) || $length < 0) {
+            return false;
+        }
+
+        $string = '';
+        for($i = $length; $i > 0; $i--) {
+            $string .= $char[mt_rand(0, strlen($char) - 1)];
+        }
+
+        return $string;
+    }
+
+    /**
+     * 生成32位唯一字符串
+     * @return string
+     */
+    public function uniquelyIdentifies()
+    {
+        return md5(uniqid(microtime(true),true));
+    }
 }
